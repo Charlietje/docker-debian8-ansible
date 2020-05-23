@@ -30,7 +30,7 @@ RUN rm -f /lib/systemd/system/systemd*udev* \
 # Install Ansible inventory file.
 RUN mkdir -p /etc/ansible
 RUN echo "[local]\nlocalhost ansible_connection=local" > /etc/ansible/hosts && \
-    echo "[defaults]\nstrategy_plugins = $(pip3 show mitogen | grep Location | cut -d' ' -f2)/ansible_mitogen/plugins/strategy\nstrategy = mitogen_linear" > /etc/ansible/ansible.cfg
+    echo "[defaults]\nstrategy_plugins = $(pip show mitogen | grep Location | cut -d' ' -f2)/ansible_mitogen/plugins/strategy\nstrategy = mitogen_linear" > /etc/ansible/ansible.cfg
 
 # Create `ansible` user with sudo permissions
 ENV ANSIBLE_USER=ansible SUDO_GROUP=sudo
