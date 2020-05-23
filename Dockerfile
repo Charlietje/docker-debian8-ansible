@@ -13,7 +13,7 @@ RUN apt-get update \
     && rm -Rf /usr/share/doc && rm -Rf /usr/share/man \
     && apt-get clean
 
-ENV pip_packages "wheel cryptography ansible mitogen"
+ENV pip_packages "wheel cryptography ansible"
 
 # Install Ansible via pip.
 RUN pip install --upgrade pip setuptools \
@@ -29,8 +29,7 @@ RUN rm -f /lib/systemd/system/systemd*udev* \
 
 # Install Ansible inventory file.
 RUN mkdir -p /etc/ansible
-RUN echo "[local]\nlocalhost ansible_connection=local" > /etc/ansible/hosts && \
-    echo "[defaults]\nstrategy_plugins = $(pip show mitogen | grep Location | cut -d' ' -f2)/ansible_mitogen/plugins/strategy\nstrategy = mitogen_linear" > /etc/ansible/ansible.cfg
+RUN echo "[local]\nlocalhost ansible_connection=local" > /etc/ansible/hosts
 
 # Create `ansible` user with sudo permissions
 ENV ANSIBLE_USER=ansible SUDO_GROUP=sudo
